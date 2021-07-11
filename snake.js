@@ -25,7 +25,9 @@ function init(){
 			}
 		},
 		drawSnake:function(){
-			for(var i=0;i<this.cells.length;i++){
+			pen.fillStyle = "#4AA96C";
+			pen.fillRect(this.cells[0].x*cs,this.cells[0].y*cs,cs+1,cs+1);
+			for(var i=1;i<this.cells.length;i++){
 				pen.fillStyle = this.color;
 				pen.fillRect(this.cells[i].x*cs,this.cells[i].y*cs,cs+1,cs+1);
 			}
