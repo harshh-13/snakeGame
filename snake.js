@@ -1,10 +1,10 @@
 function init(){
 	canvas = document.getElementById('mycanvas');
-	W = H = canvas.width = canvas.height = 1000;
+	W = canvas.width = H = canvas.height = 495;
 	pen = canvas.getContext('2d');
-	cs = 67;
+	cs = 33;
 	game_over = false;
-	score = 5;
+	score = 0;
 
 	food_img = new Image();
 	food_img.src = "Assets/apple.png";
@@ -15,8 +15,8 @@ function init(){
 	food = getRandomFood();
 
 	snake = {
-		init_len:5,
-		color:"blue",
+		init_len:3,
+		color:"#064420",
 		cells:[],
 		direction:"right",
 		createSnake:function(){
@@ -27,7 +27,7 @@ function init(){
 		drawSnake:function(){
 			for(var i=0;i<this.cells.length;i++){
 				pen.fillStyle = this.color;
-				pen.fillRect(this.cells[i].x*cs,this.cells[i].y*cs,cs-3,cs-3);
+				pen.fillRect(this.cells[i].x*cs,this.cells[i].y*cs,cs+1,cs+1);
 			}
 		},
 
@@ -36,10 +36,8 @@ function init(){
 			var headY = this.cells[0].y;
 
 			if(headX==food.x && headY==food.y){
-				console.log("Food eaten");
 				food = getRandomFood();
 				score++;
-
 			}
 			else {
 				this.cells.pop();
@@ -68,7 +66,7 @@ function init(){
 			var last_x = Math.round(W/cs);
 			var last_y = Math.round(H/cs);
 
-			if(this.cells[0].y<0 || this.cells[0].x < 0 || this.cells[0].x > last_x || this.cells[0].y > last_y){
+			if(this.cells[0].y<0 || this.cells[0].x < 0 || this.cells[0].x > 14 || this.cells[0].y > 14){
 				game_over = true;
 			}
 		}
@@ -97,12 +95,15 @@ function draw(){
 	snake.drawSnake();
 
 	pen.fillStyle = food.color;
-	pen.drawImage(food_img,food.x*cs,food.y*cs,cs,cs);
+	pen.drawImage(food_img,food.x*cs,food.y*cs-2,cs,cs);
 
 	pen.drawImage(trophy,18,20,cs,cs);
 	pen.fillStyle = "blue";
-	pen.font = "20px Roboto"
-	pen.fillText(score,50,50);
+	pen.font = "14px Roboto"
+	if(score < 10)
+		pen.fillText(score,31,35);
+	else
+		pen.fillText(score,29,35);
 }
 
 function update(){
@@ -118,13 +119,18 @@ function getRandomFood(){
 		y:foodY,
 		color:"red",
 	}
-	return food
+	return food;
+}
+
+function JSalert(){
+	swal("Game Over! Your score is "+score, 
+		"Reload the page to Restart the game :)");
 }
 
 function gameloop(){
 	if(game_over==true){
 		clearInterval(f);
-		alert("Game Over");
+		JSalert();
 		return;
 	}
 	draw();
@@ -132,5 +138,4 @@ function gameloop(){
 }
 
 init();
-
 var f = setInterval(gameloop,100);
