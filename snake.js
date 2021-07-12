@@ -65,9 +65,6 @@ function init(){
 
 			this.cells.unshift({x: nextX,y:nextY});
 
-			var last_x = Math.round(W/cs);
-			var last_y = Math.round(H/cs);
-
 			if(this.cells[0].y<0 || this.cells[0].x < 0 || this.cells[0].x > 14 || this.cells[0].y > 14){
 				game_over = true;
 			}
