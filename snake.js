@@ -1,5 +1,6 @@
 function init(){
-	canvas = document.getElementById('mycanvas');
+	canvas = document.getElementById('mycanvas')
+	canvas.style.visibility = "visible";
 	W = canvas.width = H = canvas.height = 495;
 	pen = canvas.getContext('2d');
 	cs = 33;
@@ -25,12 +26,13 @@ function init(){
 			}
 		},
 		drawSnake:function(){
-			pen.fillStyle = "#4AA96C";
-			pen.fillRect(this.cells[0].x*cs,this.cells[0].y*cs,cs+1,cs+1);
 			for(var i=1;i<this.cells.length;i++){
 				pen.fillStyle = this.color;
 				pen.fillRect(this.cells[i].x*cs,this.cells[i].y*cs,cs+1,cs+1);
 			}
+
+			pen.fillStyle = "#4AA96C";
+			pen.fillRect(this.cells[0].x*cs,this.cells[0].y*cs,cs+1,cs+1);
 		},
 
 		updateSnake:function(){
@@ -58,7 +60,7 @@ function init(){
 				nextX = headX;
 				nextY = headY + 1;
 			}
-			else{
+			else if(this.direction=="up"){
 				nextX = headX;
 				nextY = headY - 1;
 			}
@@ -82,7 +84,7 @@ function init(){
 		else if(e.key=="ArrowDown"){
 			snake.direction = "down";
 		}
-		else{
+		else if(e.key=="ArrowUp"){
 			snake.direction = "up";
 		}
 	}
@@ -93,11 +95,10 @@ function draw(){
 	pen.clearRect(0,0,W,H);
 	snake.drawSnake();
 
-	pen.fillStyle = food.color;
 	pen.drawImage(food_img,food.x*cs,food.y*cs-2,cs,cs);
-
 	pen.drawImage(trophy,18,20,cs,cs);
-	pen.fillStyle = "blue";
+
+	pen.fillStyle = "black"
 	pen.font = "14px Roboto"
 	if(score < 10)
 		pen.fillText(score,31,35);
@@ -115,8 +116,7 @@ function getRandomFood(){
 
 	var food = {
 		x:foodX,
-		y:foodY,
-		color:"red",
+		y:foodY
 	}
 	return food;
 }
