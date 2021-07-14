@@ -3,19 +3,22 @@
 		<title> Snake Game </title>
 		<link rel="icon" type="image/png" href="Assets/snake.png">
 		<style>
-			/*background-color: "#F2EDD7";*/
 			#mycanvas{
 				background-color: #F2F4C3;
-				border:8px solid green;
-				position: absolute;
-				left: 400px;
-				top: 30px;
+				border:8px solid green;   			
+			}
+   			#wrapper{
+   				display: flex; 
+				justify-content: center;
+				margin-top: 2%;
 			}
 		</style>
 	</head>
 
-	<body>
-		<canvas id="mycanvas"> </canvas>
+	<body style="background-color: #FAF1E6">
+		<div id="wrapper">
+			<canvas id="mycanvas" style="visibility: hidden;"></canvas>
+		</div>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script src="snake.js"></script>
 	</body>
